@@ -1,4 +1,4 @@
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/data/models/auth_user_model.dart';
+import 'package:personal_finance_app/src/features/auth/data/models/auth_user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

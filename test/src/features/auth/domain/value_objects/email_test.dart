@@ -1,4 +1,4 @@
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/domain/value_objects/email.dart';
+import 'package:personal_finance_app/src/features/auth/domain/value_objects/email.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

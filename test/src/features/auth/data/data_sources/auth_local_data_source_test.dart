@@ -1,4 +1,4 @@
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/data/data_sources/auth_local_data_source.dart';
+import 'package:personal_finance_app/src/features/auth/data/data_sources/auth_local_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

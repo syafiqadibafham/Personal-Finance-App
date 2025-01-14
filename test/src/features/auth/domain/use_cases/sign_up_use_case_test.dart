@@ -1,8 +1,8 @@
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/domain/entities/auth_user.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/domain/repositories/auth_repository.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/domain/use_cases/sign_up_use_case.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/domain/value_objects/email.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/domain/value_objects/password.dart';
+import 'package:personal_finance_app/src/features/auth/domain/entities/auth_user.dart';
+import 'package:personal_finance_app/src/features/auth/domain/repositories/auth_repository.dart';
+import 'package:personal_finance_app/src/features/auth/domain/use_cases/sign_up_use_case.dart';
+import 'package:personal_finance_app/src/features/auth/domain/value_objects/email.dart';
+import 'package:personal_finance_app/src/features/auth/domain/value_objects/password.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -24,9 +24,7 @@ void main() {
   const tAuthUser = AuthUser(id: '123', email: 'test@test.com');
   final tSignUpParams = SignUpParams(email: tEmail, password: tPassword);
 
-  test(
-      'should call signUp method on the AuthRepository with correct parameters',
-      () async {
+  test('should call signUp method on the AuthRepository with correct parameters', () async {
     when(mockAuthRepository.signUp(
       email: anyNamed('email'),
       password: anyNamed('password'),
@@ -40,21 +38,16 @@ void main() {
     ));
   });
 
-  test(
-      'should throw an exception when the signUp method on the AuthRepository throws an exception',
-      () async {
+  test('should throw an exception when the signUp method on the AuthRepository throws an exception', () async {
     when(mockAuthRepository.signUp(
       email: anyNamed('email'),
       password: anyNamed('password'),
     )).thenThrow(Exception());
 
-    expect(() async => await signUpUseCase.call(tSignUpParams),
-        throwsA(isA<Exception>()));
+    expect(() async => await signUpUseCase.call(tSignUpParams), throwsA(isA<Exception>()));
   });
 
-  test(
-      'should return the correct AuthUser when the signUp method on the AuthRepository returns an AuthUser',
-      () async {
+  test('should return the correct AuthUser when the signUp method on the AuthRepository returns an AuthUser', () async {
     when(mockAuthRepository.signUp(
       email: anyNamed('email'),
       password: anyNamed('password'),

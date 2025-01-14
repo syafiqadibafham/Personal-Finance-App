@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/data/data_sources/auth_remote_data_source_firebase.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/data/models/auth_user_model.dart';
+import 'package:personal_finance_app/src/features/auth/data/data_sources/auth_remote_data_source_firebase.dart';
+import 'package:personal_finance_app/src/features/auth/data/models/auth_user_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -37,9 +37,7 @@ void main() {
   });
 
   group('signUpWithEmailAndPassword', () {
-    test(
-        'should return AuthUserModel when signUpWithEmailAndPassword is successful',
-        () async {
+    test('should return AuthUserModel when signUpWithEmailAndPassword is successful', () async {
       when(
         mockFirebaseAuth.createUserWithEmailAndPassword(
           email: anyNamed('email'),
@@ -56,8 +54,7 @@ void main() {
       expect(result, equals(authUserModel));
     });
 
-    test('should throw Exception when signUpWithEmailAndPassword fails',
-        () async {
+    test('should throw Exception when signUpWithEmailAndPassword fails', () async {
       when(mockFirebaseAuth.createUserWithEmailAndPassword(
         email: anyNamed('email'),
         password: anyNamed('password'),
@@ -132,8 +129,7 @@ void main() {
     test(
       'should throw an Exception when FirebaseAuth throws an exception',
       () async {
-        when(mockFirebaseAuth.signOut())
-            .thenThrow(Exception('Sign out failed: test error'));
+        when(mockFirebaseAuth.signOut()).thenThrow(Exception('Sign out failed: test error'));
 
         final call = authRemoteDataSource.signOut;
 

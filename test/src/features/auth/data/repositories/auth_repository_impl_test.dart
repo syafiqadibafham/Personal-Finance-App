@@ -1,8 +1,8 @@
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/data/data_sources/auth_local_data_source.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/data/data_sources/auth_remote_data_source.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/data/models/auth_user_model.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/data/repositories/auth_repository_impl.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/domain/entities/auth_user.dart';
+import 'package:personal_finance_app/src/features/auth/data/data_sources/auth_local_data_source.dart';
+import 'package:personal_finance_app/src/features/auth/data/data_sources/auth_remote_data_source.dart';
+import 'package:personal_finance_app/src/features/auth/data/models/auth_user_model.dart';
+import 'package:personal_finance_app/src/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:personal_finance_app/src/features/auth/domain/entities/auth_user.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -55,15 +55,12 @@ void main() {
 
       expect(result, authUserModel.toEntity());
 
-      verify(mockLocalDataSource.write(key: 'user', value: authUserModel))
-          .called(1);
+      verify(mockLocalDataSource.write(key: 'user', value: authUserModel)).called(1);
     });
   });
 
   group('signUp', () {
-    test(
-        'calls [signUpWithEmailAndPassword] and [write] with correct arguments',
-        () async {
+    test('calls [signUpWithEmailAndPassword] and [write] with correct arguments', () async {
       when(
         mockRemoteDataSource.signUpWithEmailAndPassword(
           email: email,
@@ -80,21 +77,17 @@ void main() {
         ),
       ).called(1);
 
-      verify(mockLocalDataSource.write(key: 'user', value: authUserModel))
-          .called(1);
+      verify(mockLocalDataSource.write(key: 'user', value: authUserModel)).called(1);
     });
 
-    test(
-        'returns an AuthUser when remoteDataSource.signUpWithEmailAndPassword returns an AuthUserModel successfully',
-        () async {
+    test('returns an AuthUser when remoteDataSource.signUpWithEmailAndPassword returns an AuthUserModel successfully', () async {
       when(
         mockRemoteDataSource.signUpWithEmailAndPassword(
           email: email,
           password: password,
         ),
       ).thenAnswer((_) async => authUserModel);
-      final results =
-          await authRepository.signUp(email: email, password: password);
+      final results = await authRepository.signUp(email: email, password: password);
 
       expect(results, equals(authUserModel.toEntity()));
     });
@@ -114,13 +107,10 @@ void main() {
         password: password,
       )).called(1);
 
-      verify(mockLocalDataSource.write(key: 'user', value: authUserModel))
-          .called(1);
+      verify(mockLocalDataSource.write(key: 'user', value: authUserModel)).called(1);
     });
 
-    test(
-        'returns an AuthUser when remoteDataSource.signInWithEmailAndPassword returns an AuthUserModel successfully',
-        () async {
+    test('returns an AuthUser when remoteDataSource.signInWithEmailAndPassword returns an AuthUserModel successfully', () async {
       when(
         mockRemoteDataSource.signInWithEmailAndPassword(
           email: email,
@@ -128,8 +118,7 @@ void main() {
         ),
       ).thenAnswer((_) async => authUserModel);
 
-      final results =
-          await authRepository.signIn(email: email, password: password);
+      final results = await authRepository.signIn(email: email, password: password);
 
       expect(results, equals(authUserModel.toEntity()));
     });

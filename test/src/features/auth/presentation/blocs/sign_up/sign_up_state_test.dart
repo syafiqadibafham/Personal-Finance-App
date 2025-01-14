@@ -1,9 +1,9 @@
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/domain/value_objects/email.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/domain/value_objects/password.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/presentation/blocs/email_status.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/presentation/blocs/form_status.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/presentation/blocs/password_status.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/presentation/blocs/sign_up/sign_up_cubit.dart';
+import 'package:personal_finance_app/src/features/auth/domain/value_objects/email.dart';
+import 'package:personal_finance_app/src/features/auth/domain/value_objects/password.dart';
+import 'package:personal_finance_app/src/features/auth/presentation/blocs/email_status.dart';
+import 'package:personal_finance_app/src/features/auth/presentation/blocs/form_status.dart';
+import 'package:personal_finance_app/src/features/auth/presentation/blocs/password_status.dart';
+import 'package:personal_finance_app/src/features/auth/presentation/blocs/sign_up/sign_up_cubit.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

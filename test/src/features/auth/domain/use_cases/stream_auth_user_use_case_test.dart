@@ -1,6 +1,6 @@
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/domain/entities/auth_user.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/domain/repositories/auth_repository.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/domain/use_cases/stream_auth_user_use_case.dart';
+import 'package:personal_finance_app/src/features/auth/domain/entities/auth_user.dart';
+import 'package:personal_finance_app/src/features/auth/domain/repositories/auth_repository.dart';
+import 'package:personal_finance_app/src/features/auth/domain/use_cases/stream_auth_user_use_case.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -14,8 +14,7 @@ void main() {
 
   setUp(() {
     mockAuthRepository = MockAuthRepository();
-    streamAuthUserUseCase =
-        StreamAuthUserUseCase(authRepository: mockAuthRepository);
+    streamAuthUserUseCase = StreamAuthUserUseCase(authRepository: mockAuthRepository);
   });
 
   const tAuthUser = AuthUser(id: '123', email: 'test@test.com');
@@ -47,8 +46,7 @@ void main() {
   test(
     'should return the correct AuthUser when the authUser getter on the AuthRepository returns an AuthUser',
     () async {
-      when(mockAuthRepository.authUser)
-          .thenAnswer((_) => Stream.value(tAuthUser));
+      when(mockAuthRepository.authUser).thenAnswer((_) => Stream.value(tAuthUser));
 
       final result = streamAuthUserUseCase.call();
       final authUser = await result.first;

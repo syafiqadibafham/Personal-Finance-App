@@ -1,9 +1,9 @@
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/domain/repositories/auth_repository.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/presentation/blocs/email_status.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/presentation/blocs/form_status.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/presentation/blocs/password_status.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/presentation/blocs/sign_in/sign_in_cubit.dart';
-import 'package:flutter_clean_architecture_with_firebase/src/features/auth/presentation/screens/sign_in_screen.dart';
+import 'package:personal_finance_app/src/features/auth/domain/repositories/auth_repository.dart';
+import 'package:personal_finance_app/src/features/auth/presentation/blocs/email_status.dart';
+import 'package:personal_finance_app/src/features/auth/presentation/blocs/form_status.dart';
+import 'package:personal_finance_app/src/features/auth/presentation/blocs/password_status.dart';
+import 'package:personal_finance_app/src/features/auth/presentation/blocs/sign_in/sign_in_cubit.dart';
+import 'package:personal_finance_app/src/features/auth/presentation/screens/sign_in_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:flutter/material.dart';
@@ -54,17 +54,14 @@ void main() {
     expect(find.byType(SignInView), findsOneWidget);
   });
 
-  testWidgets('emailChanged when email changes with 500 milliseconds debounce',
-      (tester) async {
+  testWidgets('emailChanged when email changes with 500 milliseconds debounce', (tester) async {
     await tester.pumpWidget(makeTestableWidget());
     await tester.enterText(find.byKey(emailInputKey), tEmail);
     await tester.pump(const Duration(milliseconds: 500));
     verify(mockSignInCubit.emailChanged(tEmail)).called(1);
   });
 
-  testWidgets(
-      'passwordChanged when email changes with 500 milliseconds debounce',
-      (tester) async {
+  testWidgets('passwordChanged when email changes with 500 milliseconds debounce', (tester) async {
     await tester.pumpWidget(makeTestableWidget());
 
     await tester.enterText(find.byKey(passwordInputKey), tPassword);
@@ -72,8 +69,7 @@ void main() {
     verify(mockSignInCubit.passwordChanged(tPassword)).called(1);
   });
 
-  testWidgets('AppBar & ElevatedButton are present with correct text',
-      (tester) async {
+  testWidgets('AppBar & ElevatedButton are present with correct text', (tester) async {
     await tester.pumpWidget(makeTestableWidget());
     expect(find.byType(AppBar), findsOneWidget);
     expect(find.byType(ElevatedButton), findsOneWidget);
@@ -85,8 +81,7 @@ void main() {
 
     expect(find.byType(TextFormField), findsNWidgets(2));
   });
-  testWidgets('Show snack bar when the form status is invalid',
-      (WidgetTester tester) async {
+  testWidgets('Show snack bar when the form status is invalid', (WidgetTester tester) async {
     //Arrange
     const text = 'Invalid form: please fill in all fields';
     final expectedStates = [
@@ -107,8 +102,7 @@ void main() {
     expect(find.text(text), findsOneWidget);
   });
 
-  testWidgets('Show snack bar when the form status is submissionFailure',
-      (WidgetTester tester) async {
+  testWidgets('Show snack bar when the form status is submissionFailure', (WidgetTester tester) async {
     //Arrange
     const text = 'There was an error with the sign in process. Try again.';
     final expectedStates = [
@@ -140,25 +134,20 @@ void main() {
     expect(find.text('Invalid email'), findsOneWidget);
   });
 
-  testWidgets('Password field shows error for invalid password',
-      (tester) async {
-    when(mockSignInCubit.state)
-        .thenReturn(const SignInState(passwordStatus: PasswordStatus.invalid));
+  testWidgets('Password field shows error for invalid password', (tester) async {
+    when(mockSignInCubit.state).thenReturn(const SignInState(passwordStatus: PasswordStatus.invalid));
     await tester.pumpWidget(makeTestableWidget());
 
     expect(find.text('Invalid password'), findsOneWidget);
   });
 
-  testWidgets('SignIn function is called when button is pressed',
-      (tester) async {
+  testWidgets('SignIn function is called when button is pressed', (tester) async {
     await tester.pumpWidget(makeTestableWidget());
     await tester.tap(find.byType(ElevatedButton));
     verify(mockSignInCubit.signIn()).called(1);
   });
 
-  testWidgets(
-      'SignIn button is disabled when formStatus is submissionInProgress',
-      (tester) async {
+  testWidgets('SignIn button is disabled when formStatus is submissionInProgress', (tester) async {
     when(mockSignInCubit.state).thenReturn(
       const SignInState(
         formStatus: FormStatus.submissionInProgress,

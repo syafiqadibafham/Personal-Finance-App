@@ -1,4 +1,4 @@
-package com.example.flutter_clean_architecture_with_firebase
+package com.example.personal_finance_app
 
 import io.flutter.embedding.android.FlutterActivity
 
