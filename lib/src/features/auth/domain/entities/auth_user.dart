@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 
 // They are the business objects of the application (Enterprise-wide business rules)
@@ -43,6 +46,28 @@ class AuthUser extends Equatable {
   //     photoURL: json['photoURL'] as String,
   //   );
   // }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'email': email,
+      'name': name,
+      'photoURL': photoURL,
+    };
+  }
+
+  factory AuthUser.fromMap(Map<String, dynamic> map) {
+    return AuthUser(
+      id: map['id'] as String,
+      email: map['email'] as String,
+      name: map['name'] != null ? map['name'] as String : null,
+      photoURL: map['photoURL'] != null ? map['photoURL'] as String : null,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory AuthUser.fromJson(String source) => AuthUser.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
 

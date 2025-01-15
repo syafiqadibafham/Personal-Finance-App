@@ -12,7 +12,12 @@
           "package_name": "com.example.personal_finance_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "772228312833-jv27v5ro61s1i46b7j94n17nvv5bftk9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAJNRwO101H0UqvQhNUBrJq-G9OfEKZbn4"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "772228312833-jv27v5ro61s1i46b7j94n17nvv5bftk9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "772228312833-lf2ld7s30evhqhcq9tdthatt19usnj4u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterTddAndCleanArchitecture"
+              }
+            }
+          ]
         }
       }
     }

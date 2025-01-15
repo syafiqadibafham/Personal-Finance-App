@@ -41,18 +41,24 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<AuthUser> signIn({
+  Future<AuthUser?> signIn({
     required String email,
     required String password,
   }) async {
-    final authModel = await remoteDataSource.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    AuthUser? authUser;
 
-    localDataSource.write(key: 'user', value: authModel);
+    try {
+      final authModel = await remoteDataSource.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-    return authModel.toEntity();
+      localDataSource.write(key: 'user', value: authModel);
+      authUser = authModel.toEntity();
+    } catch (e) {
+      throw Exception('Login failed: $e');
+    }
+    return authUser;
   }
 
   @override
@@ -60,5 +66,12 @@ class AuthRepositoryImpl implements AuthRepository {
     await remoteDataSource.signOut();
 
     localDataSource.write(key: 'user', value: null);
+  }
+
+  @override
+  Future<AuthUser?> getCurrentUser() async {
+    final authModel = await remoteDataSource.user.first;
+
+    return authModel?.toEntity();
   }
 }

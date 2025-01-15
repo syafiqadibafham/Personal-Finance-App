@@ -14,7 +14,7 @@ class SignInUseCase {
   // The primary role of a use case is to orchestrate the execution of
   // a specific business operation. They coordinate the flow of data
   // to and from entities by interacting with repositories.
-  Future<AuthUser> call(SignInParams params) async {
+  Future<AuthUser?> call(SignInParams params) async {
     try {
       return await authRepository.signIn(
         email: params.email.value,

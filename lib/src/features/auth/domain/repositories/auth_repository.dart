@@ -16,12 +16,14 @@ abstract class AuthRepository {
     required String password,
   });
 
-  Future<AuthUser> signIn({
+  Future<AuthUser?> signIn({
     required String email,
     required String password,
   });
 
   Future<void> signOut();
+
+  Future<AuthUser?> getCurrentUser();
 }
 
 // This is crucial for the Clean Architecture's goal of separation
