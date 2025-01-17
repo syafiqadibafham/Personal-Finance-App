@@ -1,5 +1,5 @@
-import 'package:personal_finance_app/src/features/auth/domain/repositories/auth_repository.dart';
-import 'package:personal_finance_app/src/features/auth/domain/use_cases/sign_out_use_case.dart';
+import 'package:personal_finance_app/features/auth/domain/repositories/auth_repository.dart';
+import 'package:personal_finance_app/features/auth/domain/use_cases/sign_out_use_case.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

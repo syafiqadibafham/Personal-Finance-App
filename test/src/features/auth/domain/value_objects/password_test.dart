@@ -1,4 +1,4 @@
-import 'package:personal_finance_app/src/features/auth/domain/value_objects/password.dart';
+import 'package:personal_finance_app/features/auth/domain/value_objects/password.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

@@ -1,17 +1,19 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:personal_finance_app/themes/light_mode.dart';
 
 import 'firebase_options.dart';
-import 'src/features/auth/data/data_sources/auth_local_data_source.dart';
-import 'src/features/auth/data/data_sources/auth_remote_data_source.dart';
-import 'src/features/auth/data/data_sources/auth_remote_data_source_firebase.dart';
-import 'src/features/auth/data/repositories/auth_repository_impl.dart';
-import 'src/features/auth/domain/entities/auth_user.dart';
-import 'src/features/auth/domain/repositories/auth_repository.dart';
-import 'src/features/auth/presentation/screens/sign_in_screen.dart';
+import 'features/auth/data/data_sources/auth_local_data_source.dart';
+import 'features/auth/data/data_sources/auth_remote_data_source.dart';
+import 'features/auth/data/data_sources/auth_remote_data_source_firebase.dart';
+import 'features/auth/data/repositories/auth_repository_impl.dart';
+import 'features/auth/domain/entities/auth_user.dart';
+import 'features/auth/domain/repositories/auth_repository.dart';
+import 'features/auth/presentation/screens/sign_in_screen.dart';
 
 typedef AppBuilder = Future<Widget> Function();
 
@@ -25,8 +27,7 @@ void main() {
   bootstrap(
     () async {
       AuthLocalDataSource authLocalDataSource = AuthLocalDataSource();
-      AuthRemoteDataSource authRemoteDataSource =
-          AuthRemoteDataSourceFirebase();
+      AuthRemoteDataSource authRemoteDataSource = AuthRemoteDataSourceFirebase();
 
       AuthRepository authRepository = AuthRepositoryImpl(
         localDataSource: authLocalDataSource,
@@ -59,7 +60,7 @@ class App extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Clean Architecture',
-        theme: ThemeData.light(useMaterial3: true),
+        theme: lightMode,
         home: const SignInScreen(),
       ),
     );

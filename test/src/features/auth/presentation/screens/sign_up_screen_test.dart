@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:personal_finance_app/src/features/auth/domain/repositories/auth_repository.dart';
-import 'package:personal_finance_app/src/features/auth/presentation/blocs/email_status.dart';
-import 'package:personal_finance_app/src/features/auth/presentation/blocs/form_status.dart';
-import 'package:personal_finance_app/src/features/auth/presentation/blocs/password_status.dart';
-import 'package:personal_finance_app/src/features/auth/presentation/blocs/sign_up/sign_up_cubit.dart';
-import 'package:personal_finance_app/src/features/auth/presentation/screens/sign_up_screen.dart';
+import 'package:personal_finance_app/features/auth/domain/repositories/auth_repository.dart';
+import 'package:personal_finance_app/features/auth/presentation/blocs/email_status.dart';
+import 'package:personal_finance_app/features/auth/presentation/blocs/form_status.dart';
+import 'package:personal_finance_app/features/auth/presentation/blocs/password_status.dart';
+import 'package:personal_finance_app/features/auth/presentation/blocs/sign_up/sign_up_cubit.dart';
+import 'package:personal_finance_app/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

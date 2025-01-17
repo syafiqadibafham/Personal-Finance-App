@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
+
 import '../../domain/entities/auth_user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../data_sources/auth_local_data_source.dart';
@@ -52,9 +56,10 @@ class AuthRepositoryImpl implements AuthRepository {
         email: email,
         password: password,
       );
+      log('authModel: $authModel');
 
       localDataSource.write(key: 'user', value: authModel);
-      authUser = authModel.toEntity();
+      //authUser = authModel.toEntity();
     } catch (e) {
       throw Exception('Login failed: $e');
     }

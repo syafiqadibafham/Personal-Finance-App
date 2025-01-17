@@ -5,9 +5,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
-import 'package:personal_finance_app/src/features/auth/domain/entities/auth_user.dart' as _i3;
-import 'package:personal_finance_app/src/features/auth/domain/repositories/auth_repository.dart' as _i2;
-import 'package:personal_finance_app/src/features/auth/domain/use_cases/sign_in_use_case.dart' as _i4;
+import 'package:personal_finance_app/features/auth/domain/entities/auth_user.dart' as _i3;
+import 'package:personal_finance_app/features/auth/domain/repositories/auth_repository.dart' as _i2;
+import 'package:personal_finance_app/features/auth/domain/use_cases/sign_in_use_case.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint

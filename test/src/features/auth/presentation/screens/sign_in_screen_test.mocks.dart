@@ -6,9 +6,9 @@
 import 'dart:async' as _i4;
 
 import 'package:bloc/bloc.dart' as _i5;
-import 'package:personal_finance_app/src/features/auth/domain/entities/auth_user.dart' as _i3;
-import 'package:personal_finance_app/src/features/auth/domain/repositories/auth_repository.dart' as _i6;
-import 'package:personal_finance_app/src/features/auth/presentation/blocs/sign_in/sign_in_cubit.dart' as _i2;
+import 'package:personal_finance_app/features/auth/domain/entities/auth_user.dart' as _i3;
+import 'package:personal_finance_app/features/auth/domain/repositories/auth_repository.dart' as _i6;
+import 'package:personal_finance_app/features/auth/presentation/blocs/sign_in/sign_in_cubit.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:personal_finance_app/features/auth/presentation/components/pf_text_field.dart';
 
 import '../../domain/repositories/auth_repository.dart';
 import '../../domain/use_cases/sign_in_use_case.dart';
@@ -46,7 +47,10 @@ class _SignInViewState extends State<SignInView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign In'),
+        title: const Text(
+          'Personal Finance',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: BlocConsumer<SignInCubit, SignInState>(
         listener: (context, state) {
@@ -75,15 +79,13 @@ class _SignInViewState extends State<SignInView> {
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
+              spacing: 15,
               children: [
-                TextFormField(
+                Text('Welcome back to your personal finance app!'),
+                PfTextField(
                   key: const Key('signIn_emailInput_textField'),
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    errorText: state.emailStatus == EmailStatus.invalid
-                        ? 'Invalid email'
-                        : null,
-                  ),
+                  labelText: 'Email',
+                  errorText: state.emailStatus == EmailStatus.invalid ? 'Invalid email' : null,
                   onChanged: (String value) {
                     if (debounce?.isActive ?? false) debounce?.cancel();
                     debounce = Timer(const Duration(milliseconds: 500), () {
@@ -91,15 +93,11 @@ class _SignInViewState extends State<SignInView> {
                     });
                   },
                 ),
-                TextFormField(
+                PfTextField(
                   key: const Key('signIn_passwordInput_textField'),
                   obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    errorText: state.passwordStatus == PasswordStatus.invalid
-                        ? 'Invalid password'
-                        : null,
-                  ),
+                  labelText: 'Password',
+                  errorText: state.passwordStatus == PasswordStatus.invalid ? 'Invalid password' : null,
                   onChanged: (String value) {
                     context.read<SignInCubit>().passwordChanged(value);
                   },
@@ -107,8 +105,7 @@ class _SignInViewState extends State<SignInView> {
                 const SizedBox(height: 8.0),
                 ElevatedButton(
                   key: const Key('signIn_continue_elevatedButton'),
-                  onPressed: context.read<SignInCubit>().state.formStatus ==
-                          FormStatus.submissionInProgress
+                  onPressed: context.read<SignInCubit>().state.formStatus == FormStatus.submissionInProgress
                       ? null
                       : () {
                           context.read<SignInCubit>().signIn();

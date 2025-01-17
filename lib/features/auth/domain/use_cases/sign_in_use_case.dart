@@ -16,10 +16,11 @@ class SignInUseCase {
   // to and from entities by interacting with repositories.
   Future<AuthUser?> call(SignInParams params) async {
     try {
-      return await authRepository.signIn(
+      final signIN = await authRepository.signIn(
         email: params.email.value,
         password: params.password.value,
       );
+      return signIN;
     } on ArgumentError catch (error) {
       throw Exception(error);
     } catch (error) {

@@ -8,9 +8,9 @@ class SignUpUseCase {
 
   SignUpUseCase({required this.authRepository});
 
-  Future<AuthUser> call(SignUpParams params) async {
+  Future<AuthUser?> call(SignUpParams params) async {
     try {
-      AuthUser authUser = await authRepository.signUp(
+      AuthUser? authUser = await authRepository.signUp(
         email: params.email.value,
         password: params.password.value,
       );

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 import '../models/auth_user_model.dart';
@@ -26,8 +28,7 @@ class AuthRemoteDataSourceFirebase implements AuthRemoteDataSource {
     required String password,
   }) async {
     try {
-      firebase_auth.UserCredential credential =
-          await _firebaseAuth.createUserWithEmailAndPassword(
+      firebase_auth.UserCredential credential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -48,11 +49,12 @@ class AuthRemoteDataSourceFirebase implements AuthRemoteDataSource {
     required String password,
   }) async {
     try {
-      firebase_auth.UserCredential credential =
-          await _firebaseAuth.signInWithEmailAndPassword(
+      log('object: 1 credential');
+      firebase_auth.UserCredential credential = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+      log('object: credential');
 
       if (credential.user == null) {
         throw Exception('Sign in failed: The user is null after sign in.');

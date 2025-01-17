@@ -1,6 +1,6 @@
-import 'package:personal_finance_app/src/features/auth/domain/entities/auth_user.dart';
-import 'package:personal_finance_app/src/features/auth/domain/repositories/auth_repository.dart';
-import 'package:personal_finance_app/src/features/auth/domain/use_cases/stream_auth_user_use_case.dart';
+import 'package:personal_finance_app/features/auth/domain/entities/auth_user.dart';
+import 'package:personal_finance_app/features/auth/domain/repositories/auth_repository.dart';
+import 'package:personal_finance_app/features/auth/domain/use_cases/stream_auth_user_use_case.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

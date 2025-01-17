@@ -1,8 +1,8 @@
-import 'package:personal_finance_app/src/features/auth/data/data_sources/auth_local_data_source.dart';
-import 'package:personal_finance_app/src/features/auth/data/data_sources/auth_remote_data_source.dart';
-import 'package:personal_finance_app/src/features/auth/data/models/auth_user_model.dart';
-import 'package:personal_finance_app/src/features/auth/data/repositories/auth_repository_impl.dart';
-import 'package:personal_finance_app/src/features/auth/domain/entities/auth_user.dart';
+import 'package:personal_finance_app/features/auth/data/data_sources/auth_local_data_source.dart';
+import 'package:personal_finance_app/features/auth/data/data_sources/auth_remote_data_source.dart';
+import 'package:personal_finance_app/features/auth/data/models/auth_user_model.dart';
+import 'package:personal_finance_app/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:personal_finance_app/features/auth/domain/entities/auth_user.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

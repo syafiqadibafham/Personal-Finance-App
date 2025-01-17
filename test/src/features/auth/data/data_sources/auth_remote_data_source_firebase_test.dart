@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:personal_finance_app/src/features/auth/data/data_sources/auth_remote_data_source_firebase.dart';
-import 'package:personal_finance_app/src/features/auth/data/models/auth_user_model.dart';
+import 'package:personal_finance_app/features/auth/data/data_sources/auth_remote_data_source_firebase.dart';
+import 'package:personal_finance_app/features/auth/data/models/auth_user_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
