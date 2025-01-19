@@ -51,41 +51,45 @@ class _SignUpViewState extends State<SignUpView> {
   }
 
   Future<void> _signUp() async {
+    final name = _nameController.text;
     final email = _emailController.text;
     final password = _passwordController.text;
+    final repeatPassword = _repeatPasswordController.text;
 
     final authCubit = context.read<AuthCubit>();
-    if (email.isNotEmpty && password.isNotEmpty) {
-      try {
-        await authCubit.signUpWithEmailAndPassword(email, password);
-        if (mounted) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Text('Login successful: ${authCubit.getCurrentUser}'),
-              ),
-            );
-        }
-      } catch (e) {
-        if (mounted) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Text('Login Error: $e'),
-              ),
-            );
-        }
-      }
-    } else {
+
+    if (name.isEmpty || email.isEmpty || password.isEmpty || repeatPassword.isEmpty) {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(
           const SnackBar(
-            content: Text('Invalid form: please fill in all fields'),
+            content: Text('Please fill in all fields'),
           ),
         );
+      return;
+    }
+
+    try {
+      await authCubit.signUpWithEmailAndPassword(email, password);
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(
+              content: Text('Login successful: ${authCubit.getCurrentUser}'),
+            ),
+          );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(
+              content: Text('Login Error: $e'),
+            ),
+          );
+      }
     }
   }
 
@@ -138,11 +142,10 @@ class _SignUpViewState extends State<SignUpView> {
                 // },
               ),
               PfTextField(
-                key: const Key('signUp_passwordInput_textField'),
                 isObscureText: true,
                 controller: _repeatPasswordController,
                 labelText: 'Confirm Password',
-                // errorText: state.passwordStatus == PasswordStatus.invalid ? 'Invalid password' : null,
+                errorText: _repeatPasswordController.text != _passwordController.text ? 'Invalid password' : null,
                 // onChanged: (String value) {
                 //   context.read<SignUpCubit>().passwordChanged(value);
                 // },
