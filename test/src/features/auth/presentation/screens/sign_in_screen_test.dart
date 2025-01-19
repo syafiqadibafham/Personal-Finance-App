@@ -28,7 +28,9 @@ void main() {
     return MaterialApp(
       home: BlocProvider<SignInCubit>(
         create: (_) => mockSignInCubit,
-        child: const SignInView(),
+        child: SignInView(
+          onTap: () {},
+        ),
       ),
     );
   }
@@ -47,7 +49,10 @@ void main() {
     await tester.pumpWidget(
       RepositoryProvider<AuthRepository>(
         create: (_) => mockAuthRepository,
-        child: const MaterialApp(home: SignInScreen()),
+        child: MaterialApp(
+            home: SignInScreen(
+          onTap: () {},
+        )),
       ),
     );
 

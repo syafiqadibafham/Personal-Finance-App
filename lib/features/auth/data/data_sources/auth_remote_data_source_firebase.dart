@@ -54,7 +54,7 @@ class AuthRemoteDataSourceFirebase implements AuthRemoteDataSource {
         email: email,
         password: password,
       );
-      log('object: credential');
+      log('object: $credential');
 
       if (credential.user == null) {
         throw Exception('Sign in failed: The user is null after sign in.');

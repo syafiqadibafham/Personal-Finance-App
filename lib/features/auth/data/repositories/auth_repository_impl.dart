@@ -11,7 +11,9 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;
   final AuthLocalDataSource localDataSource;
 
-  const AuthRepositoryImpl({
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  AuthRepositoryImpl({
     required this.remoteDataSource,
     required this.localDataSource,
   });
@@ -59,7 +61,7 @@ class AuthRepositoryImpl implements AuthRepository {
       log('authModel: $authModel');
 
       localDataSource.write(key: 'user', value: authModel);
-      //authUser = authModel.toEntity();
+      authUser = authModel.toEntity();
     } catch (e) {
       throw Exception('Login failed: $e');
     }

@@ -4,6 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:personal_finance_app/features/auth/presentation/cubits/auth_cubit.dart';
+import 'package:personal_finance_app/features/auth/presentation/cubits/auth_states.dart';
+import 'package:personal_finance_app/features/auth/presentation/screens/auth_screen.dart';
+import 'package:personal_finance_app/features/auth/presentation/screens/sign_in_screen.dart';
+import 'package:personal_finance_app/features/home/presentation/home_screen.dart';
 import 'package:personal_finance_app/themes/light_mode.dart';
 
 import 'firebase_options.dart';
@@ -13,7 +18,6 @@ import 'features/auth/data/data_sources/auth_remote_data_source_firebase.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
 import 'features/auth/domain/entities/auth_user.dart';
 import 'features/auth/domain/repositories/auth_repository.dart';
-import 'features/auth/presentation/screens/sign_in_screen.dart';
 
 typedef AppBuilder = Future<Widget> Function();
 
@@ -54,14 +58,28 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider.value(value: authRepository),
-      ],
+    return BlocProvider(
+      create: (context) => AuthCubit(authRepository: authRepository)..checkAuth(),
       child: MaterialApp(
         title: 'Clean Architecture',
         theme: lightMode,
-        home: const SignInScreen(),
+        home: BlocConsumer<AuthCubit, AuthState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            print(state);
+
+            if (state is AuthUnauthenticated || state is AuthError) {
+              if (state is AuthError) {
+                print(state.message);
+              }
+              return const AuthScreen();
+            }
+            if (state is AuthAuthenticated) {
+              return const HomeScreen();
+            }
+            return const Scaffold(body: Center(child: CircularProgressIndicator()));
+          },
+        ),
       ),
     );
   }

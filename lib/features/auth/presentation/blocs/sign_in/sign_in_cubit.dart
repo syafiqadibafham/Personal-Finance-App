@@ -47,8 +47,7 @@ class SignInCubit extends Cubit<SignInState> {
   }
 
   Future<void> signIn() async {
-    if (!(state.emailStatus == EmailStatus.valid) ||
-        !(state.passwordStatus == PasswordStatus.valid)) {
+    if (!(state.emailStatus == EmailStatus.valid) || !(state.passwordStatus == PasswordStatus.valid)) {
       emit(state.copyWith(formStatus: FormStatus.invalid));
       emit(state.copyWith(formStatus: FormStatus.initial));
       return;
