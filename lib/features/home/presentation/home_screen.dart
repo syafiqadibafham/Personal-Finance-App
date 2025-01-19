@@ -15,15 +15,19 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final authCubit = context.read<AuthCubit>();
     return Scaffold(
-        appBar: AppBar(title: Text('Home')),
+        appBar: AppBar(
+          title: Text('Home'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: () {
+                authCubit.logout();
+              },
+            )
+          ],
+        ),
         body: Column(children: [
           Text(authCubit.getCurrentUser!.toJson().toString()),
-          PfButton(
-            labelText: 'Log out',
-            onTap: () {
-              authCubit.logout();
-            },
-          )
         ]));
   }
 }

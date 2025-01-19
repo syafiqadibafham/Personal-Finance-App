@@ -64,14 +64,21 @@ class App extends StatelessWidget {
         title: 'Clean Architecture',
         theme: lightMode,
         home: BlocConsumer<AuthCubit, AuthState>(
-          listener: (context, state) {},
+          // Listen for errors
+          listener: (context, state) {
+            if (state is AuthError) {
+              print(state.message);
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Text('Login Error: ${state.message}'),
+                  ),
+                );
+            }
+          },
           builder: (context, state) {
-            print(state);
-
             if (state is AuthUnauthenticated || state is AuthError) {
-              if (state is AuthError) {
-                print(state.message);
-              }
               return const AuthScreen();
             }
             if (state is AuthAuthenticated) {

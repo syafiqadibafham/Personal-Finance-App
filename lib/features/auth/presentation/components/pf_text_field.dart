@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
 
-class PfTextField extends StatelessWidget {
+class PfTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String? labelText;
   final String? errorText;
   final Function(String value)? onChanged;
-  final bool obscureText;
+  final bool isObscureText;
 
-  const PfTextField({super.key, this.labelText, this.errorText, this.onChanged, this.obscureText = false, this.controller});
+  const PfTextField({super.key, this.labelText, this.errorText, this.onChanged, this.isObscureText = false, this.controller});
+
+  @override
+  State<PfTextField> createState() => _PfTextFieldState();
+}
+
+class _PfTextFieldState extends State<PfTextField> {
+  bool _isObscured = true;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      key: key,
-      controller: controller,
-      obscureText: obscureText,
+      key: widget.key,
+      controller: widget.controller,
+      obscureText: widget.isObscureText ? _isObscured : false,
       decoration: InputDecoration(
-        labelText: labelText,
-        errorText: errorText,
+        labelText: widget.labelText,
+        errorText: widget.errorText,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Theme.of(context).colorScheme.tertiary,
@@ -42,8 +49,20 @@ class PfTextField extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(12),
         ),
+        suffixIcon: widget.isObscureText
+            ? IconButton(
+                icon: Icon(
+                  _isObscured ? Icons.visibility : Icons.visibility_off,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isObscured = !_isObscured;
+                  });
+                },
+              )
+            : null,
       ),
-      onChanged: onChanged,
+      onChanged: widget.onChanged,
     );
   }
 }

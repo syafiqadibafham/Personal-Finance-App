@@ -117,7 +117,7 @@ class _SignInViewState extends State<SignInView> {
               ),
               PfTextField(
                 key: const Key('signIn_passwordInput_textField'),
-                obscureText: true,
+                isObscureText: true,
                 labelText: 'Password',
                 controller: _passwordController,
                 //errorText: state.passwordStatus == PasswordStatus.invalid ? 'Invalid password' : null,
