@@ -35,14 +35,18 @@ class SignUpView extends StatefulWidget {
 
 class _SignUpViewState extends State<SignUpView> {
   Timer? debounce;
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _repeatPasswordController = TextEditingController();
 
   @override
   void dispose() {
     debounce?.cancel();
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _repeatPasswordController.dispose();
     super.dispose();
   }
 
@@ -101,6 +105,18 @@ class _SignUpViewState extends State<SignUpView> {
             children: [
               PfTextField(
                 key: const Key('signUp_emailInput_textField'),
+                controller: _nameController,
+                labelText: 'Name',
+                // errorText: state.emailStatus == EmailStatus.invalid ? 'Invalid email' : null,
+                // onChanged: (String value) {
+                //   if (debounce?.isActive ?? false) debounce?.cancel();
+                //   debounce = Timer(const Duration(milliseconds: 500), () {
+                //     context.read<SignUpCubit>().emailChanged(value);
+                //   });
+                // },
+              ),
+              PfTextField(
+                key: const Key('signUp_emailInput_textField'),
                 controller: _emailController,
                 labelText: 'Email',
                 // errorText: state.emailStatus == EmailStatus.invalid ? 'Invalid email' : null,
@@ -116,6 +132,16 @@ class _SignUpViewState extends State<SignUpView> {
                 isObscureText: true,
                 controller: _passwordController,
                 labelText: 'Password',
+                // errorText: state.passwordStatus == PasswordStatus.invalid ? 'Invalid password' : null,
+                // onChanged: (String value) {
+                //   context.read<SignUpCubit>().passwordChanged(value);
+                // },
+              ),
+              PfTextField(
+                key: const Key('signUp_passwordInput_textField'),
+                isObscureText: true,
+                controller: _repeatPasswordController,
+                labelText: 'Confirm Password',
                 // errorText: state.passwordStatus == PasswordStatus.invalid ? 'Invalid password' : null,
                 // onChanged: (String value) {
                 //   context.read<SignUpCubit>().passwordChanged(value);
