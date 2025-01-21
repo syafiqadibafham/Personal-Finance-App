@@ -80,8 +80,9 @@ class PasswordBuilder implements Builder<Password, PasswordBuilder> {
   _$Password _build() {
     final _$result = _$v ??
         new _$Password._(
-            value: BuiltValueNullFieldError.checkNotNull(
-                value, r'Password', 'value'));
+          value: BuiltValueNullFieldError.checkNotNull(
+              value, r'Password', 'value'),
+        );
     replace(_$result);
     return _$result;
   }

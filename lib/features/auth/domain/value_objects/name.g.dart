@@ -1,33 +1,33 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'email.dart';
+part of 'name.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-class _$Email extends Email {
+class _$Name extends Name {
   @override
   final String value;
 
-  factory _$Email([void Function(EmailBuilder)? updates]) =>
-      (new EmailBuilder()..update(updates))._build();
+  factory _$Name([void Function(NameBuilder)? updates]) =>
+      (new NameBuilder()..update(updates))._build();
 
-  _$Email._({required this.value}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(value, r'Email', 'value');
+  _$Name._({required this.value}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(value, r'Name', 'value');
   }
 
   @override
-  Email rebuild(void Function(EmailBuilder) updates) =>
+  Name rebuild(void Function(NameBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  EmailBuilder toBuilder() => new EmailBuilder()..replace(this);
+  NameBuilder toBuilder() => new NameBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Email && value == other.value;
+    return other is Name && value == other.value;
   }
 
   @override
@@ -40,21 +40,21 @@ class _$Email extends Email {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'Email')..add('value', value))
+    return (newBuiltValueToStringHelper(r'Name')..add('value', value))
         .toString();
   }
 }
 
-class EmailBuilder implements Builder<Email, EmailBuilder> {
-  _$Email? _$v;
+class NameBuilder implements Builder<Name, NameBuilder> {
+  _$Name? _$v;
 
   String? _value;
   String? get value => _$this._value;
   set value(String? value) => _$this._value = value;
 
-  EmailBuilder();
+  NameBuilder();
 
-  EmailBuilder get _$this {
+  NameBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _value = $v.value;
@@ -64,24 +64,23 @@ class EmailBuilder implements Builder<Email, EmailBuilder> {
   }
 
   @override
-  void replace(Email other) {
+  void replace(Name other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$Email;
+    _$v = other as _$Name;
   }
 
   @override
-  void update(void Function(EmailBuilder)? updates) {
+  void update(void Function(NameBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  Email build() => _build();
+  Name build() => _build();
 
-  _$Email _build() {
+  _$Name _build() {
     final _$result = _$v ??
-        new _$Email._(
-          value:
-              BuiltValueNullFieldError.checkNotNull(value, r'Email', 'value'),
+        new _$Name._(
+          value: BuiltValueNullFieldError.checkNotNull(value, r'Name', 'value'),
         );
     replace(_$result);
     return _$result;

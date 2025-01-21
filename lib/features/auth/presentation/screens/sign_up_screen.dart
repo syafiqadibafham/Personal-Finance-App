@@ -6,13 +6,6 @@ import 'package:personal_finance_app/features/auth/presentation/components/pf_bu
 import 'package:personal_finance_app/features/auth/presentation/components/pf_text_field.dart';
 import 'package:personal_finance_app/features/auth/presentation/cubits/auth_cubit.dart';
 
-import '../../domain/repositories/auth_repository.dart';
-import '../../domain/use_cases/sign_up_use_case.dart';
-import '../blocs/email_status.dart';
-import '../blocs/form_status.dart';
-import '../blocs/password_status.dart';
-import '../blocs/sign_up/sign_up_cubit.dart';
-
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key, required this.onTap});
 
@@ -39,6 +32,7 @@ class _SignUpViewState extends State<SignUpView> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _repeatPasswordController = TextEditingController();
+  String? _repeatPasswordErrorText;
 
   @override
   void dispose() {
@@ -69,8 +63,19 @@ class _SignUpViewState extends State<SignUpView> {
       return;
     }
 
+    if (password != repeatPassword) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          const SnackBar(
+            content: Text('Passwords do not match'),
+          ),
+        );
+      return;
+    }
+
     try {
-      await authCubit.signUpWithEmailAndPassword(email, password);
+      await authCubit.signUpWithEmailAndPassword(name, email, password);
       if (mounted) {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
@@ -93,8 +98,21 @@ class _SignUpViewState extends State<SignUpView> {
     }
   }
 
+  void _validateRepeatPassword() {
+    setState(() {
+      if (_repeatPasswordController.text != _passwordController.text) {
+        _repeatPasswordErrorText = 'Passwords do not match';
+      } else {
+        _repeatPasswordErrorText = null;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final password = _passwordController.text;
+    final repeatPassword = _repeatPasswordController.text;
+
     return Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -108,7 +126,7 @@ class _SignUpViewState extends State<SignUpView> {
             spacing: 10,
             children: [
               PfTextField(
-                key: const Key('signUp_emailInput_textField'),
+                key: const Key('signUp_nameInput_textField'),
                 controller: _nameController,
                 labelText: 'Name',
                 // errorText: state.emailStatus == EmailStatus.invalid ? 'Invalid email' : null,
@@ -142,13 +160,15 @@ class _SignUpViewState extends State<SignUpView> {
                 // },
               ),
               PfTextField(
+                key: const Key('signUp_repearPasswordInput_textField'),
                 isObscureText: true,
                 controller: _repeatPasswordController,
                 labelText: 'Confirm Password',
-                errorText: _repeatPasswordController.text != _passwordController.text ? 'Invalid password' : null,
-                // onChanged: (String value) {
-                //   context.read<SignUpCubit>().passwordChanged(value);
-                // },
+                errorText: _repeatPasswordErrorText,
+                onChanged: (String value) {
+                  //context.read<SignUpCubit>().passwordChanged(value);
+                  _validateRepeatPassword();
+                },
               ),
               const SizedBox(height: 8.0),
               PfButton(

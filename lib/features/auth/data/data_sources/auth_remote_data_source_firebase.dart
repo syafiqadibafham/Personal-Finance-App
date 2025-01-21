@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 import '../models/auth_user_model.dart';
@@ -11,6 +10,7 @@ class AuthRemoteDataSourceFirebase implements AuthRemoteDataSource {
   }) : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
 
   final firebase_auth.FirebaseAuth _firebaseAuth;
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   @override
   Stream<AuthUserModel?> get user {
@@ -24,6 +24,7 @@ class AuthRemoteDataSourceFirebase implements AuthRemoteDataSource {
 
   @override
   Future<AuthUserModel> signUpWithEmailAndPassword({
+    required String name,
     required String email,
     required String password,
   }) async {
@@ -37,7 +38,15 @@ class AuthRemoteDataSourceFirebase implements AuthRemoteDataSource {
         throw Exception('Sign up failed: The user is null after sign up.');
       }
 
-      return AuthUserModel.fromFirebaseAuthUser(credential.user!);
+      // Save user data to Firestore
+      AuthUserModel authUser = AuthUserModel(
+        id: credential.user!.uid,
+        name: name,
+        email: credential.user!.email!,
+      );
+      await _firebaseFirestore.collection('users').doc(authUser.id).set(authUser.toEntity().toMap());
+
+      return authUser;
     } catch (error) {
       throw Exception('Sign up failed: $error');
     }
@@ -49,12 +58,10 @@ class AuthRemoteDataSourceFirebase implements AuthRemoteDataSource {
     required String password,
   }) async {
     try {
-      log('object: 1 credential');
       firebase_auth.UserCredential credential = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      log('object: $credential');
 
       if (credential.user == null) {
         throw Exception('Sign in failed: The user is null after sign in.');

@@ -4,6 +4,7 @@ abstract class AuthRemoteDataSource {
   Stream<AuthUserModel?> get user;
 
   Future<AuthUserModel> signUpWithEmailAndPassword({
+    required String name,
     required String email,
     required String password,
   });

@@ -1,7 +1,5 @@
 import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
-
 import '../../domain/entities/auth_user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../data_sources/auth_local_data_source.dart';
@@ -11,8 +9,6 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;
   final AuthLocalDataSource localDataSource;
 
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
   AuthRepositoryImpl({
     required this.remoteDataSource,
     required this.localDataSource,
@@ -21,11 +17,11 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Stream<AuthUser> get authUser {
     return remoteDataSource.user.map((authUserModel) {
-      if (authUserModel != null) {
-        localDataSource.write(key: 'user', value: authUserModel);
-      } else {
-        localDataSource.write(key: 'user', value: null);
-      }
+      // if (authUserModel != null) {
+      //   localDataSource.write(key: 'user', value: authUserModel);
+      // } else {
+      //   localDataSource.write(key: 'user', value: null);
+      // }
 
       return authUserModel == null ? AuthUser.empty : authUserModel.toEntity();
     });
@@ -33,10 +29,12 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<AuthUser> signUp({
+    required String name,
     required String email,
     required String password,
   }) async {
     final authModel = await remoteDataSource.signUpWithEmailAndPassword(
+      name: name,
       email: email,
       password: password,
     );

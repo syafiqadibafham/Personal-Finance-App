@@ -1,17 +1,18 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_finance_app/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:personal_finance_app/features/auth/presentation/cubits/auth_states.dart';
 import 'package:personal_finance_app/features/auth/presentation/screens/auth_screen.dart';
-import 'package:personal_finance_app/features/auth/presentation/screens/sign_in_screen.dart';
 import 'package:personal_finance_app/features/home/presentation/home_screen.dart';
+import 'package:personal_finance_app/features/profile/cubits/profile_cubit.dart';
+import 'package:personal_finance_app/features/profile/data/profile_repository_impl.dart';
+import 'package:personal_finance_app/features/profile/domain/repositories/profile_repository.dart';
 import 'package:personal_finance_app/themes/light_mode.dart';
 
-import 'firebase_options.dart';
+import 'config/firebase_options.dart';
 import 'features/auth/data/data_sources/auth_local_data_source.dart';
 import 'features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'features/auth/data/data_sources/auth_remote_data_source_firebase.dart';
@@ -38,9 +39,14 @@ void main() {
         remoteDataSource: authRemoteDataSource,
       );
 
+      ProfileRepository profileRepository = ProfileRepositoryImpl(
+        localDataSource: authLocalDataSource,
+      );
+
       return App(
-        authRepository: authRepository,
         authUser: await authRepository.authUser.first,
+        authRepository: authRepository,
+        profileRepository: profileRepository,
       );
     },
   );
@@ -50,16 +56,26 @@ class App extends StatelessWidget {
   const App({
     super.key,
     required this.authRepository,
+    required this.profileRepository,
     this.authUser,
   });
 
   final AuthRepository authRepository;
+  final ProfileRepository profileRepository;
   final AuthUser? authUser;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(authRepository: authRepository)..checkAuth(),
+    // Provide cubits to app
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthCubit>(
+          create: (context) => AuthCubit(authRepository: authRepository)..checkAuth(),
+        ),
+        BlocProvider<ProfileCubit>(
+          create: (context) => ProfileCubit(profileRepository: profileRepository),
+        ),
+      ],
       child: MaterialApp(
         title: 'Clean Architecture',
         theme: lightMode,
@@ -67,7 +83,6 @@ class App extends StatelessWidget {
           // Listen for errors
           listener: (context, state) {
             if (state is AuthError) {
-              print(state.message);
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
@@ -91,15 +106,3 @@ class App extends StatelessWidget {
     );
   }
 }
-
-// class HomeScreen extends StatelessWidget {
-//   const HomeScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('Clean Architecture')),
-//       body: const Column(children: []),
-//     );
-//   }
-// }

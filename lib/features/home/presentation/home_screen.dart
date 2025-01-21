@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_finance_app/features/auth/presentation/components/pf_button.dart';
 import 'package:personal_finance_app/features/auth/presentation/cubits/auth_cubit.dart';
+import 'package:personal_finance_app/features/home/presentation/components/drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,15 +18,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Home'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: () {
-                authCubit.logout();
-              },
-            )
-          ],
+          actions: [],
         ),
+        drawer: PfDrawer(),
         body: Column(children: [
           Text(authCubit.getCurrentUser!.toJson().toString()),
         ]));

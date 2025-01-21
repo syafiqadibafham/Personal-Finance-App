@@ -19,6 +19,7 @@ void main() {
   late AuthRemoteDataSourceFirebase authRemoteDataSource;
   late AuthUserModel authUserModel;
 
+  const tName = 'test';
   const tEmail = 'test@test.com';
   const tPassword = 'password';
 
@@ -47,6 +48,7 @@ void main() {
       when(mockUserCredential.user).thenReturn(mockUser);
 
       final result = await authRemoteDataSource.signUpWithEmailAndPassword(
+        name: tName,
         email: tEmail,
         password: tPassword,
       );
@@ -63,7 +65,7 @@ void main() {
       final call = authRemoteDataSource.signUpWithEmailAndPassword;
 
       expect(
-        () => call(email: tEmail, password: tPassword),
+        () => call(name: tName, email: tEmail, password: tPassword),
         throwsA(isA<Exception>()),
       );
     });

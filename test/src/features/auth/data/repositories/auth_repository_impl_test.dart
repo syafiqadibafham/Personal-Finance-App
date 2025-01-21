@@ -27,6 +27,7 @@ void main() {
     );
   });
 
+  const name = 'test';
   const email = 'test@gmail.com';
   const password = 'password12345';
   const authUserModel = AuthUserModel(id: '123', email: 'test@test.com');
@@ -63,15 +64,17 @@ void main() {
     test('calls [signUpWithEmailAndPassword] and [write] with correct arguments', () async {
       when(
         mockRemoteDataSource.signUpWithEmailAndPassword(
+          name: name,
           email: email,
           password: password,
         ),
       ).thenAnswer((_) async => authUserModel);
 
-      await authRepository.signUp(email: email, password: password);
+      await authRepository.signUp(name: name, email: email, password: password);
 
       verify(
         mockRemoteDataSource.signUpWithEmailAndPassword(
+          name: name,
           email: email,
           password: password,
         ),
@@ -83,11 +86,12 @@ void main() {
     test('returns an AuthUser when remoteDataSource.signUpWithEmailAndPassword returns an AuthUserModel successfully', () async {
       when(
         mockRemoteDataSource.signUpWithEmailAndPassword(
+          name: name,
           email: email,
           password: password,
         ),
       ).thenAnswer((_) async => authUserModel);
-      final results = await authRepository.signUp(email: email, password: password);
+      final results = await authRepository.signUp(name: name, email: email, password: password);
 
       expect(results, equals(authUserModel.toEntity()));
     });

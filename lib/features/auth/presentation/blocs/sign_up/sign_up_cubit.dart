@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:personal_finance_app/features/auth/domain/value_objects/name.dart';
 
 import '../../../domain/use_cases/sign_up_use_case.dart';
 import '../../../domain/value_objects/email.dart';
@@ -47,8 +48,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   Future<void> signUp() async {
-    if (!(state.emailStatus == EmailStatus.valid) ||
-        !(state.passwordStatus == PasswordStatus.valid)) {
+    if (!(state.emailStatus == EmailStatus.valid) || !(state.passwordStatus == PasswordStatus.valid)) {
       emit(state.copyWith(formStatus: FormStatus.invalid));
       emit(state.copyWith(formStatus: FormStatus.initial));
       return;
@@ -57,7 +57,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(state.copyWith(formStatus: FormStatus.submissionInProgress));
     try {
       await _signUpUseCase(
-        SignUpParams(email: state.email!, password: state.password!),
+        SignUpParams(name: state.name!, email: state.email!, password: state.password!),
       );
       emit(state.copyWith(formStatus: FormStatus.submissionSuccess));
     } catch (err) {

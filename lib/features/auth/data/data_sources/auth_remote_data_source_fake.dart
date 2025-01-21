@@ -15,6 +15,7 @@ class AuthRemoteDataSourceFake implements AuthRemoteDataSource {
 
   @override
   Future<AuthUserModel> signUpWithEmailAndPassword({
+    required String name,
     required String email,
     required String password,
   }) async {

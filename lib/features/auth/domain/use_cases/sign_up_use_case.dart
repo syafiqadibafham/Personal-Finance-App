@@ -1,3 +1,5 @@
+import 'package:personal_finance_app/features/auth/domain/value_objects/name.dart';
+
 import '../entities/auth_user.dart';
 import '../repositories/auth_repository.dart';
 import '../value_objects/email.dart';
@@ -11,6 +13,7 @@ class SignUpUseCase {
   Future<AuthUser?> call(SignUpParams params) async {
     try {
       AuthUser? authUser = await authRepository.signUp(
+        name: params.name.value,
         email: params.email.value,
         password: params.password.value,
       );
@@ -24,10 +27,12 @@ class SignUpUseCase {
 }
 
 class SignUpParams {
+  final Name name;
   final Email email;
   final Password password;
 
   SignUpParams({
+    required this.name,
     required this.email,
     required this.password,
   });
